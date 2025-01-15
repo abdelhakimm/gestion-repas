@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(
@@ -43,6 +46,14 @@ public class User {
     @PastOrPresent(message = "La date de création ne peut pas être dans le futur")
     @Column(name = "date_creation", nullable = false, updatable = false)
     private LocalDateTime dateCreation;
+
+    @ManyToMany(mappedBy = "user")
+    @JoinTable(
+            name = "user_planning",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "planning_id")
+    )
+    private Set<Planning> plannings = new HashSet<>();
 
     public User() {
         this.dateCreation = LocalDateTime.now();
@@ -95,6 +106,16 @@ public class User {
     public User setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
         return this;
+    }
+
+
+
+    public Collection<Planning> getPlannings() {
+        return plannings;
+    }
+
+    public void setPlannings(Set<Planning> plannings) {
+        this.plannings = plannings;
     }
 }
 
