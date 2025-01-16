@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(
@@ -26,6 +27,14 @@ public class Task {
     @NotBlank(message = "la date de la tâche est obligatoire")
     @Column(name = "date_execution" , nullable = false)
     private LocalDate date_execution;
+
+    @NotBlank(message = "l'heure du début de la tâche est obligatoire")
+    @Column(name = "heure_debut", nullable = false)
+    private LocalTime heureDebut;
+
+    @NotBlank(message = "l'heure de fin de la tâche est obligatoire")
+    @Column(name = "heure_fin", nullable = false)
+    private LocalTime heureFin;
 
     @NotBlank(message = "Le status est obligatoire")
     @Enumerated(EnumType.STRING)
