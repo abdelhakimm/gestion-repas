@@ -35,6 +35,9 @@ public class Planning {
     @ManyToMany
     private Set<User> users = new HashSet<User>();
 
+    @OneToMany(mappedBy = "planning")
+    private Set<Task> tasks = new HashSet<Task>();
+
     public Long getId() {
         return id;
     }
@@ -77,6 +80,15 @@ public class Planning {
 
     public Planning setUsers(Set<User> users) {
         this.users = users;
+        return this;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public Planning setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
         return this;
     }
 }

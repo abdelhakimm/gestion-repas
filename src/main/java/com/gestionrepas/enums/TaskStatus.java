@@ -2,6 +2,7 @@ package com.gestionrepas.enums;
 
 public enum TaskStatus {
     TODO("À faire"),
+    PENDING("En attente"),
     IN_PROGRESS("En cours"),
     DONE("Terminé");
 
