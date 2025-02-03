@@ -21,7 +21,8 @@ public class Task {
     @Column(nullable = false, length = 50)
     private String titre;
 
-    @Column(nullable = true, length = 255)
+
+    @Column(columnDefinition = "TEXT",nullable = true)
     private String description;
 
     @NotBlank(message = "la date de la tâche est obligatoire")
