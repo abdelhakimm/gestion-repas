@@ -1,10 +1,10 @@
 package com.gestionrepas.entity;
 
+import com.gestionrepas.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,42 +22,39 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Le nom d'utilisateur est obligatoire.")
-    @Size(min = 4, max = 50, message = "Le nom d'utilisateur doit contenir entre 4 et 50 caractères.")
+    @NotBlank(message = "Username is required.")
+    @Size(min = 4, max = 50, message = "Username must be between 4 and 50 characters.")
     @Column(nullable = false, unique = true, length = 50)
     private String username;
 
-    @NotBlank(message = "l'email est obligatoire")
-    @Size(max = 100, message = "L'adresse email ne peut pas dépasser 100 caractères.")
-    @Email(message = "L'email doit être valide")
+    @NotBlank(message = "Email is required.")
+    @Size(max = 100, message = "Email must not exceed 100 characters.")
+    @Email(message = "Email must be valid.")
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    @NotBlank(message = "Le mot de passe est obligatoire")
-    @Size(min = 8, message = "Le mot de passe doit contenir au moin 8 charactéres")
+    @NotBlank(message = "Password is required.")
+    @Size(min = 8, message = "Password must be at least 8 characters long.")
     @Column(nullable = false)
     private String password;
 
-    @NotBlank(message = "le rôle est obligatoire")
-    @Pattern(regexp = "USER|ADMIN", message = "les rôle doit être USER ou ADMIN")
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
-    private String role;
+    private UserRole role;
 
-    @PastOrPresent(message = "La date de création ne peut pas être dans le futur")
-    @Column(name = "date_creation", nullable = false, updatable = false)
-    private LocalDateTime dateCreation;
+    @PastOrPresent(message = "Creation date cannot be in the future.")
+    @Column(name = "creation_date", nullable = false, updatable = false)
+    private LocalDateTime creationDate = LocalDateTime.now();
 
     @ManyToMany
     @JoinTable(
-            name = "user_planning",
+            name = "user_schedule",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "planning_id")
+            inverseJoinColumns = @JoinColumn(name = "schedule_id")
     )
-    private Set<Planning> plannings = new HashSet<>();
-
+    private Set<Schedule> schedules = new HashSet<>();
 
     public User() {
-        this.dateCreation = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -81,43 +78,44 @@ public class User {
     public String getEmail() {
         return this.email;
     }
+
     public User setEmail(String email) {
         this.email = email;
         return this;
     }
+
     public String getPassword() {
         return this.password;
     }
+
     public User setPassword(String password) {
         this.password = password;
         return this;
     }
-    public String getRole() {
+
+    public UserRole getRole() {
         return this.role;
     }
 
-    public User setRole(String role) {
+    public User setRole(UserRole role) {
         this.role = role;
         return this;
     }
-    public LocalDateTime getDateCreation() {
-        return this.dateCreation;
 
+    public LocalDateTime getCreationDate() {
+        return this.creationDate;
     }
-    public User setDateCreation(LocalDateTime dateCreation) {
-        this.dateCreation = dateCreation;
+
+    public User setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
         return this;
     }
 
-
-
-    public Collection<Planning> getPlannings() {
-        return plannings;
+    public Set<Schedule> getSchedules() {
+        return schedules;
     }
 
-    public void setPlannings(Set<Planning> plannings) {
-        this.plannings = plannings;
+    public void setSchedules(Set<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }
-
-

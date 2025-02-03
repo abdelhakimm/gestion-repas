@@ -9,60 +9,55 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(
-        name = "taches"
-)
+@Table(name = "tasks")
 public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idTask;
+    private Long id;
 
-    @NotBlank(message = "le titre de la tache est obligatoire")
+    @NotBlank(message = "The task title is required")
     @Column(nullable = false, length = 50)
-    private String titre;
+    private String title;
 
-
-    @Column(columnDefinition = "TEXT",nullable = true)
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @NotNull(message = "La date de la tâche est obligatoire")
-    @Column(name = "date_execution", nullable = false)
-    private LocalDate dateExecution;
+    @NotNull(message = "The task date is required")
+    @Column(name = "execution_date", nullable = false)
+    private LocalDate executionDate;
 
-    @NotNull(message = "L'heure de début est obligatoire")
-    @Column(name = "heure_debut", nullable = false)
-    private LocalTime heureDebut;
+    @NotNull(message = "The start time is required")
+    @Column(name = "start_time", nullable = false)
+    private LocalTime startTime;
 
-    @NotNull(message = "L'heure de fin est obligatoire")
-    @Column(name = "heure_fin", nullable = false)
-    private LocalTime heureFin;
+    @NotNull(message = "The end time is required")
+    @Column(name = "end_time", nullable = false)
+    private LocalTime endTime;
 
-
-    @NotBlank(message = "Le status est obligatoire")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private TaskStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "planning_id", nullable = false)
-    private Planning planning;
+    @JoinColumn(name = "schedule_id", nullable = false)
+    private Schedule schedule;
 
-    public Long getIdTask() {
-        return idTask;
+    public Long getId() {
+        return id;
     }
 
-    public Task setIdTask(Long idTask) {
-        this.idTask = idTask;
+    public Task setId(Long id) {
+        this.id = id;
         return this;
     }
 
-    public String getTitre() {
-        return titre;
+    public String getTitle() {
+        return title;
     }
 
-    public Task setTitre(String titre) {
-        this.titre = titre;
+    public Task setTitle(String title) {
+        this.title = title;
         return this;
     }
 
@@ -75,12 +70,30 @@ public class Task {
         return this;
     }
 
-    public LocalDate getDate_execution() {
-        return dateExecution;
+    public LocalDate getExecutionDate() {
+        return executionDate;
     }
 
-    public Task setDate_execution(LocalDate date_execution) {
-        this.dateExecution = date_execution;
+    public Task setExecutionDate(LocalDate executionDate) {
+        this.executionDate = executionDate;
+        return this;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public Task setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+        return this;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public Task setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
         return this;
     }
 
@@ -93,12 +106,12 @@ public class Task {
         return this;
     }
 
-    public Planning getPlanning() {
-        return planning;
+    public Schedule getSchedule() {
+        return schedule;
     }
 
-    public Task setPlanning(Planning planning) {
-        this.planning = planning;
+    public Task setSchedule(Schedule schedule) {
+        this.schedule = schedule;
         return this;
     }
 }
