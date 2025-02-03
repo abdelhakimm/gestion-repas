@@ -2,6 +2,7 @@ package com.gestionrepas.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -24,13 +25,14 @@ public class Planning {
     @Column(name = "nom", nullable = false, unique = true, length = 50)
     private String nom;
 
-    @NotBlank(message = "La date de début est obligatoire")
-    @Column(name = "date_debut", nullable = false, length = 10)
+    @NotNull(message = "La date de début est obligatoire")
+    @Column(name = "date_debut", nullable = false)
     private LocalDate dateDebut;
 
-    @NotBlank(message = "La date de fin est obligatoire")
-    @Column(name = "date_fin", nullable = false, length = 10)
+    @NotNull(message = "La date de fin est obligatoire")
+    @Column(name = "date_fin", nullable = false)
     private LocalDate dateFin;
+
 
     @ManyToMany
     private Set<User> users = new HashSet<User>();

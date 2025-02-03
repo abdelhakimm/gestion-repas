@@ -3,6 +3,7 @@ package com.gestionrepas.entity;
 import com.gestionrepas.enums.TaskStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,17 +26,18 @@ public class Task {
     @Column(columnDefinition = "TEXT",nullable = true)
     private String description;
 
-    @NotBlank(message = "la date de la tâche est obligatoire")
-    @Column(name = "date_execution" , nullable = false)
-    private LocalDate date_execution;
+    @NotNull(message = "La date de la tâche est obligatoire")
+    @Column(name = "date_execution", nullable = false)
+    private LocalDate dateExecution;
 
-    @NotBlank(message = "l'heure du début de la tâche est obligatoire")
+    @NotNull(message = "L'heure de début est obligatoire")
     @Column(name = "heure_debut", nullable = false)
     private LocalTime heureDebut;
 
-    @NotBlank(message = "l'heure de fin de la tâche est obligatoire")
+    @NotNull(message = "L'heure de fin est obligatoire")
     @Column(name = "heure_fin", nullable = false)
     private LocalTime heureFin;
+
 
     @NotBlank(message = "Le status est obligatoire")
     @Enumerated(EnumType.STRING)
@@ -74,11 +76,11 @@ public class Task {
     }
 
     public LocalDate getDate_execution() {
-        return date_execution;
+        return dateExecution;
     }
 
     public Task setDate_execution(LocalDate date_execution) {
-        this.date_execution = date_execution;
+        this.dateExecution = date_execution;
         return this;
     }
 

@@ -47,13 +47,14 @@ public class User {
     @Column(name = "date_creation", nullable = false, updatable = false)
     private LocalDateTime dateCreation;
 
-    @ManyToMany(mappedBy = "user")
+    @ManyToMany
     @JoinTable(
             name = "user_planning",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "planning_id")
     )
     private Set<Planning> plannings = new HashSet<>();
+
 
     public User() {
         this.dateCreation = LocalDateTime.now();
