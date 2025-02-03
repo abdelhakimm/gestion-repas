@@ -3,6 +3,7 @@ package com.gestionrepas.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -82,4 +83,20 @@ public class Meal {
         this.schedule = schedule;
         return this;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Meal meal = (Meal) o;
+        if (id != null && meal.id != null) {
+            return id.equals(meal.id);
+        }
+        return name.equals(meal.name) && schedule.equals(meal.schedule);
+    }
+
+    @Override
+    public int hashCode() {
+        return (id != null) ? Objects.hash(id) : Objects.hash(name, schedule);
+    }
+
 }

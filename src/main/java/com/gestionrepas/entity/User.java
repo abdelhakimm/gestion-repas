@@ -6,6 +6,7 @@ import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -118,4 +119,22 @@ public class User {
     public void setSchedules(Set<Schedule> schedules) {
         this.schedules = schedules;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+
+        if (id != null && user.id != null) {
+            return id.equals(user.id);
+        }
+        return email.equals(user.email) && username.equals(user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return (id != null) ? Objects.hash(id) : Objects.hash(email, username);
+    }
+
 }

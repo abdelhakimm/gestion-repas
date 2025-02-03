@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tasks")
@@ -114,4 +115,25 @@ public class Task {
         this.schedule = schedule;
         return this;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+
+        if (id != null && task.id != null) {
+            return id.equals(task.id);
+        }
+
+        return title.equals(task.title) &&
+                executionDate.equals(task.executionDate) &&
+                schedule.equals(task.schedule);
+    }
+
+    @Override
+    public int hashCode() {
+        return (id != null) ? Objects.hash(id) : Objects.hash(title, executionDate, schedule);
+    }
+
 }

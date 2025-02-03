@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -92,4 +93,24 @@ public class Schedule {
         this.tasks = tasks;
         return this;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Schedule schedule = (Schedule) o;
+
+        if (id != null && schedule.id != null) {
+            return id.equals(schedule.id);
+        }
+        return name.equals(schedule.name) &&
+                startDate.equals(schedule.startDate) &&
+                endDate.equals(schedule.endDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return (id != null) ? Objects.hash(id) : Objects.hash(name, startDate, endDate);
+    }
+
 }
